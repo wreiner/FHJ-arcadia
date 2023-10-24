@@ -35,8 +35,11 @@ export class UsersController {
   //create user
   @Post()
   async create(@Body() user: User): Promise<User> {
-    return this.usersService.create(user);
+    return this.usersService.register_user(user);
   }
+  // async create(@Body() user: User): Promise<User> {
+  //   return this.usersService.create(user);
+  // }
 
   //update user
   @Put(':id')
@@ -53,5 +56,11 @@ export class UsersController {
       throw new NotFoundException('User does not exist!');
     }
     return this.usersService.delete(id);
+  }
+
+  //create user
+  @Post('register_user')
+  async register_user(@Body() user: User): Promise<User> {
+    return this.usersService.register_user(user);
   }
 }

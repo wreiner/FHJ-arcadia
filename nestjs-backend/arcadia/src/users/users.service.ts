@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -18,6 +18,7 @@ export class UsersService {
     return this.userRepository.findOne({ where: { id } });
   }
 
+  // unused - use register_user instead
   async create(user: Partial<User>): Promise<User> {
     const newuser = this.userRepository.create(user);
     return this.userRepository.save(newuser);
@@ -30,5 +31,21 @@ export class UsersService {
 
   async delete(id: number): Promise<void> {
     await this.userRepository.delete(id);
+  }
+
+  findByUsername(name: string): Promise<User | undefined> {
+    return this.userRepository.findOneBy({ name });
+  }
+
+  async register_user(user: Partial<User>): Promise<User> {
+    const name = user.name;
+    const foundExistingUser = await this.userRepository.findOneBy({ name });
+
+    if (foundExistingUser) {
+      throw new ConflictException('A user with the same name already exists');
+    }
+
+    const newuser = this.userRepository.create(user);
+    return this.userRepository.save(newuser);
   }
 }

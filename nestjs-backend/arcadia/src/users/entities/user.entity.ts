@@ -5,9 +5,19 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
-
-  @Column()
-  email: string;
 }
+
+// user.type.ts
+// interface User {
+//   id?: number;
+//   name: string;
+// }
+
+export interface UserEntity {
+  id?: number;
+  name: string;
+}
+
+export default User;
