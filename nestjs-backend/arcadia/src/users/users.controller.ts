@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
 // import { Logger } from '@nestjs/common';
 
 @Controller('users')
@@ -35,16 +36,16 @@ export class UsersController {
 
   //create user
   @Post()
-  async create(@Body() user: User): Promise<User> {
+  async create(@Body() user: CreateUserDto): Promise<CreateUserDto> {
     return this.usersService.register_user(user);
   }
-  // async create(@Body() user: User): Promise<User> {
-  //   return this.usersService.create(user);
-  // }
 
   //update user
   @Put(':id')
-  async update(@Param('id') id: number, @Body() user: User): Promise<any> {
+  async update(
+    @Param('id') id: number,
+    @Body() user: CreateUserDto,
+  ): Promise<any> {
     return this.usersService.update(id, user);
   }
 
@@ -59,9 +60,8 @@ export class UsersController {
     return this.usersService.delete(id);
   }
 
-  //create user
   @Post('register_user')
-  async register_user(@Body() user: User): Promise<User> {
+  async register_user(@Body() user: CreateUserDto): Promise<CreateUserDto> {
     return this.usersService.register_user(user);
   }
 
