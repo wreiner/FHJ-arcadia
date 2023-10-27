@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { PlaysService } from './plays.service';
 import { Play } from './entities/play.entity';
+import { NewPlayDto } from './dto/new-play.dto';
 
 @Controller('plays')
 export class PlaysController {
@@ -53,5 +54,10 @@ export class PlaysController {
       throw new NotFoundException('Play does not exist!');
     }
     return this.playsService.delete(id);
+  }
+
+  @Post('start_new_game')
+  async start_new_game(@Body() newPlay: NewPlayDto): Promise<any> {
+    return this.playsService.new_game(newPlay);
   }
 }

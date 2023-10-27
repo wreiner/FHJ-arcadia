@@ -63,7 +63,7 @@ export class UsersService {
       throw new ConflictException('A user with the same name already exists');
     }
 
-    const newuser = this.userRepository.create(user);
+    const newuser = await this.userRepository.create(user);
     return this.userRepository.save(newuser);
   }
 }

@@ -7,6 +7,7 @@ import {
   JoinColumn,
   JoinTable,
   BeforeInsert,
+  ManyToOne,
 } from 'typeorm';
 import { Game } from '../../games/entities/game.entity';
 import { User } from '../../users/entities/user.entity';
@@ -16,9 +17,9 @@ export class Play {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToMany(() => Game)
-  @JoinTable()
-  games: Game[];
+  @ManyToOne(() => Game)
+  @JoinColumn()
+  game: Game;
 
   @ManyToMany(() => User)
   @JoinTable()
@@ -27,7 +28,7 @@ export class Play {
   @Column('jsonb')
   game_state: any;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => User)
   @JoinColumn()
   next_to_move: User;
 
