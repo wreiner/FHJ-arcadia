@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   NotFoundException,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
@@ -66,8 +67,9 @@ export class UsersController {
   }
 
   //create user
+  @HttpCode(200)
   @Get('username_taken/:name')
-  async username_taken(@Param('name') name: string): Promise<User> {
+  async username_taken(@Param('name') name: string): Promise<any> {
     return this.usersService.username_taken(name);
   }
 }

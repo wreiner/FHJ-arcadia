@@ -37,13 +37,22 @@ export class UsersService {
     await this.userRepository.delete(id);
   }
 
-  async username_taken(name: string): Promise<User> {
+  async ausername_taken(name: string): Promise<User> {
     const foundExistingUser = await this.userRepository.findOneBy({ name });
 
     if (!foundExistingUser) {
       throw new NotFoundException();
     }
     return foundExistingUser;
+  }
+
+  async username_taken(name: string): Promise<any> {
+    const foundExistingUser = await this.userRepository.findOneBy({ name });
+
+    if (!foundExistingUser) {
+      throw new NotFoundException();
+    }
+    return { status: 'exists' };
   }
 
   async register_user(user: Partial<User>): Promise<User> {
