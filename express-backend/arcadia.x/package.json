@@ -1,0 +1,21 @@
+{
+  "name": "arcadia",
+  "version": "0.0.1-alpha1",
+  "description": "Backend for FHJ Hackathon project Arcadia",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git-iit.fh-joanneum.at/swd22-hackathon/arcadia.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Walter Reiner",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
